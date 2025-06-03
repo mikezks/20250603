@@ -7,7 +7,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { APP_ROUTES } from './app.routes';
 import { AuthInterceptor, authInterceptor } from './shared/logic-communication/auth/auth.interceptor';
 import { provideRouterFeature } from './shared/logic-router-state';
-import { provideApiBaseUrl } from './app.providers';
+import { provideApiBaseUrl, provideAppWait } from './app.providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects(),
     provideRouterFeature(),
     provideStoreDevtools(),
-    provideApiBaseUrl('https://fake.angulararchitects.io/api')
+    provideApiBaseUrl('https://fake.angulararchitects.io/api'),
+    // provideAppWait(10)
   ]
 };
