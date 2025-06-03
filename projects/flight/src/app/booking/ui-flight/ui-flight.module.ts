@@ -8,10 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    FlightCardComponent,
     FlightFilterComponent
   ],
   imports: [
+    FlightCardComponent,
     CommonModule,
     RouterModule,
     ReactiveFormsModule
