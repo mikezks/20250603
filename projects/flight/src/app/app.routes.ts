@@ -1,6 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './shared/feature-core';
+import { Routes } from '@angular/router';
 
 
 export const APP_ROUTES: Routes = [
@@ -11,7 +9,7 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    loadComponent: () => import('./shared/feature-core/home/home.component')
   },
   {
     path: 'booking',
