@@ -14,7 +14,6 @@ import { UiFlightModule } from './ui-flight/ui-flight.module';
   declarations: [
     FlightBookingComponent,
     FlightEditComponent,
-    FlightSearchComponent
   ],
   imports: [
     CommonModule,
