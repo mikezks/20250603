@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Flight, FlightFilter, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
+import { provideApiBaseUrl } from '../../../app.providers';
 
 
 @Component({
@@ -14,6 +15,10 @@ import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
     FlightFilterComponent
   ],
   templateUrl: './flight-search.component.html',
+  /* providers: [
+    // This is not allowed!
+    provideApiBaseUrl('https://fake.angulararchitects.io/api')
+  ] */
 })
 export class FlightSearchComponent {
   private ticketsFacade = injectTicketsFacade();
