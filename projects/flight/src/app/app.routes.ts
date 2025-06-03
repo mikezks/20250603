@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './shared/feature-core';
 
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'home',
@@ -32,10 +32,3 @@ const routes: Routes = [
     redirectTo: 'home'
   }
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

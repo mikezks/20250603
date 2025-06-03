@@ -1,28 +1,8 @@
 
-import { HttpClientModule } from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { AppRoutingModule } from './app/app-routing.module';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { routerFeature } from './app/shared/logic-router-state';
-import { SharedModule } from './app/shared/shared.module';
-import { UiCoreModule } from './app/shared/ui-core/ui-core.module';
+import { appConfig } from './app/app.config';
 
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    importProvidersFrom(
-      BrowserModule,
-      AppRoutingModule,
-      HttpClientModule,
-      StoreModule.forRoot(),
-      EffectsModule.forRoot(),
-      StoreModule.forFeature(routerFeature),
-      UiCoreModule,
-      SharedModule
-    )
-  ]
-})
+bootstrapApplication(AppComponent, appConfig)
   .catch(err => console.error(err));
