@@ -3,6 +3,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { routerFeature } from '../../../shared/logic-router-state';
 import { initialFlight } from '../../logic-flight';
+import { FlightService } from '../../api-boarding';
 
 
 @Component({
@@ -10,10 +11,14 @@ import { initialFlight } from '../../logic-flight';
   imports: [
     ReactiveFormsModule
   ],
-  templateUrl: './flight-edit.component.html'
+  templateUrl: './flight-edit.component.html',
+  providers: [
+    FlightService
+  ]
 })
 export class FlightEditComponent implements OnChanges {
   private store = inject(Store);
+  private flightService = inject(FlightService);
 
   @Input() flight = initialFlight;
 
@@ -29,6 +34,8 @@ export class FlightEditComponent implements OnChanges {
     this.store.select(routerFeature.selectRouteParams).subscribe(
       params => console.log(params)
     );
+
+    this.flightService.findById(1).subscribe(console.log);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
