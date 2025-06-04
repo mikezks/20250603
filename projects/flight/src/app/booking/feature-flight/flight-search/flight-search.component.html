@@ -27,7 +27,8 @@
     <div *ngFor="let flight of flights" class="col-xs-12 col-sm-6 col-md-4">
       <app-flight-card
         [item]="flight"
-        [(selected)]="basket[flight.id]"
+        [selected]="basket[flight.id]"
+        (selectedChange)="basket[flight.id] = $event"
         (delayTrigger)="delay($event)"
       />
     </div>
