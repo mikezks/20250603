@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects(),
     provideRouterFeature(),
     provideStoreDevtools(),
-    provideApiBaseUrl('https://fake.angulararchitects.io/api'),
+    provideApiBaseUrl('https://demo.angulararchitects.io/api'),
     // provideAppWait(10)
   ]
 };

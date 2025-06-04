@@ -11,6 +11,7 @@ import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from "
 import { tap } from "rxjs";
 import { provideNavigationConfig } from "../shared/logic-navigation";
 import { BOOKING_NAVIGATION } from "./booking.navigation";
+import { authGuard } from "../shared/logic-auth/auth/auth.guard";
 
 
 export const BOOKING_ROUTES: Routes = [
@@ -51,6 +52,9 @@ export const BOOKING_ROUTES: Routes = [
           {
             path: 'edit/:id',
             component: FlightEditComponent,
+            canMatch: [
+              authGuard('michael', 'home')
+            ]
             /* resolve: {
               flight: resolveFlight
             } */

@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject, signal, untracked } from '@angular/core';
+import { AuthService } from '../../logic-auth/auth/auth.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   template: `
     <div class="card">
       <div class="card-header">
@@ -22,6 +26,19 @@ import { Component } from '@angular/core';
         </ul>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Login</h2>
+      </div>
+
+      <div class="card-body">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username" [(ngModel)]="username" class="form-control">
+        </div>
+      </div>
+    </div>
   `,
   styles: [`
     code {
@@ -30,4 +47,13 @@ import { Component } from '@angular/core';
   `]
 })
 export class HomeComponent {
+  private authService = inject(AuthService);
+  protected username = signal(this.authService.username());
+
+  constructor() {
+    effect(() => {
+      const username = this.username();
+      untracked(() => this.authService.login(username));
+    });
+  }
 }
