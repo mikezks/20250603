@@ -2,16 +2,13 @@ import { Routes } from "@angular/router";
 import { provideEffects } from "@ngrx/effects";
 import { provideState } from "@ngrx/store";
 import { DepatureComponent } from "../boarding/feature-departure";
+import { provideNavigationConfig } from "../shared/logic-navigation";
+import { BOOKING_NAVIGATION } from "./booking.navigation";
 import { FlightBookingComponent, FlightEditComponent, FlightSearchComponent } from "./feature-flight";
 import { MyFlightsComponent } from "./feature-flight/my-flights/my-flights.component";
 import { TicketEffects } from "./logic-flight/+state/effects";
 import { ticketFeature } from "./logic-flight/+state/reducer";
 import { resolveFlight } from "./logic-flight/data-access/flight.resolver";
-import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from "@angular/common/http";
-import { tap } from "rxjs";
-import { provideNavigationConfig } from "../shared/logic-navigation";
-import { BOOKING_NAVIGATION } from "./booking.navigation";
-import { authGuard } from "../shared/logic-auth/auth/auth.guard";
 
 
 export const BOOKING_ROUTES: Routes = [
@@ -21,14 +18,6 @@ export const BOOKING_ROUTES: Routes = [
     providers: [
       provideState(ticketFeature),
       provideEffects([TicketEffects]),
-      provideHttpClient(
-        withInterceptors([
-          (req, next) => next(req).pipe(
-            tap(resp => console.log('Lazy Loading Interceptor', resp))
-          )
-        ]),
-        withRequestsMadeViaParent()
-      ),
       provideNavigationConfig(BOOKING_NAVIGATION)
     ],
     children: [
@@ -52,12 +41,9 @@ export const BOOKING_ROUTES: Routes = [
           {
             path: 'edit/:id',
             component: FlightEditComponent,
-            canMatch: [
-              authGuard('michael', 'home')
-            ]
-            /* resolve: {
+            resolve: {
               flight: resolveFlight
-            } */
+            }
           },
           {
             path: 'departures',
