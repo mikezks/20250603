@@ -18,18 +18,4 @@ import { FlightCardComponent } from '../../ui-flight/flight-card/flight-card.com
 })
 export class FlightSearchComponent {
   protected store = inject(BookingStore);
-
-  protected delay(flight: Flight): void {
-    const oldFlight = flight;
-    const oldDate = new Date(oldFlight.date);
-
-    const newDate = new Date(oldDate.getTime() + 1000 * 60 * 5); // Add 5 min
-    const newFlight = {
-      ...oldFlight,
-      date: newDate.toISOString(),
-      delayed: true
-    };
-
-    this.store.setFlight(newFlight);
-  }
 }
