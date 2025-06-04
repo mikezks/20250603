@@ -1,5 +1,5 @@
 import { patchState, signalStore, type, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { entityConfig, removeAllEntities, setAllEntities, setEntity, withEntities } from '@ngrx/signals/entities';
+import { entityConfig, removeAllEntities, setAllEntities, setEntity, updateEntity, withEntities } from '@ngrx/signals/entities';
 import { tapResponse } from '@ngrx/operators';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { FlightFilter } from '../model/flight-filter';
@@ -7,6 +7,7 @@ import { Flight } from '../model/flight';
 import { computed, inject } from '@angular/core';
 import { pipe, switchMap } from 'rxjs';
 import { FlightService } from '../data-access/flight.service';
+import { addMinutes } from '../../../shared/util-date';
 
 
 interface BookingState {
@@ -61,6 +62,13 @@ export const BookingStore = signalStore(
       patchState(
         store,
         setEntity(flight, flightConfig)
+      ),
+    addFlightDelay: (id: number, min: number) =>
+      patchState(
+        store,
+        updateEntity({ id, changes: flight => ({
+          date: addMinutes(flight.date, min)
+        })}, flightConfig)
       ),
     updateBasket: (id: number, selected: boolean) =>
       patchState(store, state => ({ basket: {
