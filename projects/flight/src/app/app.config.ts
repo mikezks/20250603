@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
@@ -22,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideRouterFeature(),
     provideStoreDevtools(),
     provideApiBaseUrl('https://demo.angulararchitects.io/api'),
+    provideExperimentalZonelessChangeDetection(),
   ]
 };

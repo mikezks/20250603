@@ -31,6 +31,7 @@ export class FlightSearchComponent {
     5: true
   };
   protected flights = this.ticketsFacade.flights;
+  protected firstname = 'Sarah';
 
   constructor() {
     // Implicit Effect Triggers
@@ -40,6 +41,7 @@ export class FlightSearchComponent {
       this.filter();
       untracked(() => this.search());
     });
+    setTimeout(() => this.firstname = 'John', 3_000);
   }
 
   protected search(): void {
