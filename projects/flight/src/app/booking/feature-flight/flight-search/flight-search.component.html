@@ -21,7 +21,7 @@
   </div>
 </div>
 
-@defer (on interaction(flightFilter); prefetch on timer(5s)) {
+@defer (hydrate on interaction) {
   <div class="row">
     @for (flight of flights; track flight.id) {
       <div class="col-xs-12 col-sm-6 col-md-4">

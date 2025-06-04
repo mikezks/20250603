@@ -9,6 +9,7 @@ import { provideApiBaseUrl } from './app.providers';
 import { APP_ROUTES } from './app.routes';
 import { provideNavigationService } from './shared/logic-navigation';
 import { provideRouterFeature } from './shared/logic-router-state';
+import { provideClientHydration, withEventReplay, withIncrementalHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +23,9 @@ export const appConfig: ApplicationConfig = {
     provideRouterFeature(),
     provideStoreDevtools(),
     provideApiBaseUrl('https://demo.angulararchitects.io/api'),
+    provideClientHydration(
+      withEventReplay(),
+      withIncrementalHydration()
+    ),
   ]
 };
