@@ -19,10 +19,6 @@ import { FlightCardComponent } from '../../ui-flight/flight-card/flight-card.com
 export class FlightSearchComponent {
   protected store = inject(BookingStore);
 
-  protected route = computed(
-    () => 'From ' + this.store.filter.from() + ' to ' + this.store.filter.to() + '.'
-  );
-
   protected delay(flight: Flight): void {
     const oldFlight = flight;
     const oldDate = new Date(oldFlight.date);
