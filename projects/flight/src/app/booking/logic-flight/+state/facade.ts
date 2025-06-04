@@ -8,7 +8,9 @@ export function injectTicketsFacade() {
   const store = inject(BookingStore);
 
   return {
-    flights: store.flights,
+    filter: store.filter,
+    basket: store.basket,
+    flights: store.flightEntities,
     search: (filter: FlightFilter) => store.setFilter(filter),
     update: (flight: Flight) => {},
     reset: () => store.setFlights([])

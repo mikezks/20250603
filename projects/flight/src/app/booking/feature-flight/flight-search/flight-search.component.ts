@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, signal, untracked } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Flight, injectTicketsFacade } from '../../logic-flight';
+import { BookingStore, Flight } from '../../logic-flight';
 import { FlightFilterComponent } from '../../ui-flight';
 import { FlightCardComponent } from '../../ui-flight/flight-card/flight-card.component';
 
@@ -17,41 +17,11 @@ import { FlightCardComponent } from '../../ui-flight/flight-card/flight-card.com
   templateUrl: './flight-search.component.html'
 })
 export class FlightSearchComponent {
-  private ticketsFacade = injectTicketsFacade();
+  protected store = inject(BookingStore);
 
-  protected filter = signal({
-    from: 'London',
-    to: 'New York',
-    urgent: false
-  });
   protected route = computed(
-    () => 'From ' + this.filter().from + ' to ' + this.filter().to + '.'
+    () => 'From ' + this.store.filter.from() + ' to ' + this.store.filter.to() + '.'
   );
-  protected basket: Record<number, boolean> = {
-    3: true,
-    5: true
-  };
-  protected flights = this.ticketsFacade.flights;
-  protected firstname = 'Sarah';
-
-  constructor() {
-    // Implicit Effect Triggers
-    effect(() => console.log(this.route()));
-    // Explicit Effect Triggers
-    effect(() => {
-      this.filter();
-      untracked(() => this.search());
-    });
-    setTimeout(() => this.firstname = 'John', 3_000);
-  }
-
-  protected search(): void {
-    if (!this.filter().from || !this.filter().to) {
-      return;
-    }
-
-    this.ticketsFacade.search(this.filter());
-  }
 
   protected delay(flight: Flight): void {
     const oldFlight = flight;
@@ -64,10 +34,6 @@ export class FlightSearchComponent {
       delayed: true
     };
 
-    this.ticketsFacade.update(newFlight);
-  }
-
-  protected reset(): void {
-    this.ticketsFacade.reset();
+    this.store.setFlight(newFlight);
   }
 }
