@@ -7,7 +7,7 @@
 
   <div class="card-body">
 
-    <app-flight-filter [(filter)]="filter">
+    <app-flight-filter [(filter)]="filter" #flightFilter>
       <div *ngIf="flights.length" class="flight-filter-info">
         {{ flights.length }} flights found!
       </div>
@@ -21,26 +21,34 @@
   </div>
 </div>
 
-<div class="row">
-  @for (flight of flights; track flight.id) {
-    <div class="col-xs-12 col-sm-6 col-md-4">
-      <app-flight-card
-        [item]="flight"
-        [selected]="basket[flight.id]"
-        (selectedChange)="basket[flight.id] = $event"
-        (delayTrigger)="delay($event)"
-      />
+@defer (on interaction(flightFilter); prefetch on timer(5s)) {
+  <div class="row">
+    @for (flight of flights; track flight.id) {
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <app-flight-card
+          [item]="flight"
+          [selected]="basket[flight.id]"
+          (selectedChange)="basket[flight.id] = $event"
+          (delayTrigger)="delay($event)"
+        />
+      </div>
+    }
+  </div>
+} @placeholder {
+  <p>Flight results are shown at the right time - relax.</p>
+}
+
+@defer (on viewport) {
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Basket</h2>
     </div>
-  }
-</div>
-
-<div class="card">
-  <div class="card-header">
-    <h2 class="card-title">Basket</h2>
+  
+    <div class="card-body">
+      <pre>{{ basket | json }}</pre>
+    </div>
   </div>
-
-  <div class="card-body">
-    <pre>{{ basket | json }}</pre>
-  </div>
-</div>
+} @placeholder {
+  <p>Basket is shown at the right time - relax.</p>
+}
 
